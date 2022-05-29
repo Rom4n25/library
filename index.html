@@ -5,24 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <title>Library</title>
 </head>
 <body>
-    <input type="text" name="author" id="author_name">
-    <input type="text" name="title" id="book_title">
-    <input type="number" name="pages" id="book_pages">
-    <input type="text" name="read" id="book_read">
-    <button>Add Book</button>
-
-    <table class="table-book">
-        <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Pages</th>
-            <th>Read</th>
-        </tr>
-    </table>
-
+    <div class="grid-layout-wrapper">
+        <header>
+        <p>Library</p>
+        </header>
+        <main>
+            <div class="hide input-container">
+                    <div class="input-wrap">
+                        <label for="author_name">Author name:</label>
+                        <input type="text" name="author" id="author_name" placeholder="" required>
+                    </div>
+                    <div class="input-wrap">
+                        <label for="book_title">Book title:</label>
+                        <input type="text" name="title" id="book_title" required>
+                    </div>
+                    <div class="input-wrap">
+                        <label for="book_pages">Pages:</label>
+                        <input type="number" name="pages" id="book_pages" required>
+                    </div>
+                    <div class="input-wrap">
+                        <label for="book_read">Did you read this book?:</label>
+                        <input type="text" name="read" id="book_read" required>
+                    </div>
+                    <button class="addBtn">Add Book</button>
+            </div>
+            <div class="table-container">
+                <button class="show-input-container">+ Add Book</button>
+                <table class="table-book">
+                    <tr>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Pages</th>
+                        <th>Read</th>
+                    </tr>
+                </table>
+            </div>
+        </main>
+    </div>
     <script src="js/script.js"></script>
 </body>
 </html>

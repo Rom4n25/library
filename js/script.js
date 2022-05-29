@@ -8,31 +8,25 @@ function Book(author,title,pages,read) {
 }
 
 Book.prototype.setReadStatus = function(){
-    
 }
 
-function addBookToLibrary() {
+function openFormWindow(){
+    inputContainer.classList.remove("hide");
+}
+
+function closeFormWindow(){
+    inputContainer.classList.add("hide");
+    author.value="";
+    title.value="";
+    pages.value="";
+    read.value="";
+}
+
+function addBookToLibrary(){
     const book = new Book(author.value,title.value, pages.value, read.value);
     myLibrary.push(book);
-
-    const row = document.createElement("tr");
-
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Delete";
-    removeBtn.setAttribute("row_id",book["title"]+book["author"]);
-    removeBtn.addEventListener("click",removeBookFromLibrary);
-    
-    for (let property in book){
-        if(book.hasOwnProperty(property)){
-            let td = document.createElement("td");
-            td.textContent = book[property];
-            row.appendChild(td);
-        }
-    }
-
-    row.appendChild(removeBtn);
-    row.id = book["title"]+book["author"];
-    tableOfBooks.appendChild(row);
+    addBookToTableRow(book);
+    closeFormWindow();
 }
 
 function removeBookFromLibrary(){
@@ -42,33 +36,40 @@ function removeBookFromLibrary(){
            myLibrary.splice(bookIndex,1);
         }
     })
-
-    const childToRemove = document.getElementById(this.getAttribute("row_id"));
-    tableOfBooks.removeChild(childToRemove);
+   removeBookFromTableRow(this);
 }
 
 function displayLibrary(){
 
     myLibrary.forEach(book=>{
-        const row = document.createElement("tr");
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "Delete";
-        removeBtn.setAttribute("row_id",book["title"]+book["author"]);
-        removeBtn.addEventListener("click",removeBookFromLibrary);
-
-        for (let property in book){
-            if(book.hasOwnProperty(property)){
-                let td = document.createElement("td");
-                td.textContent = book[property];
-                row.appendChild(td);
-            }
-        }
-    
-        row.appendChild(removeBtn);
-        row.id = book["title"]+book["author"];
-        tableOfBooks.appendChild(row);
+       addBookToTableRow(book);
     })
+}
 
+function addBookToTableRow(book){
+    const tableRow = document.createElement("tr");
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("removeBtn");
+    removeBtn.setAttribute("row_id",book["title"]+book["author"]);
+    removeBtn.addEventListener("click",removeBookFromLibrary);
+    
+    for (let property in book){
+        if(book.hasOwnProperty(property)){
+            let td = document.createElement("td");
+            td.textContent = book[property];
+            tableRow.appendChild(td);
+        }
+        
+    }
+
+    tableRow.appendChild(removeBtn);
+    tableRow.id = book["title"]+book["author"];
+    tableOfBooks.appendChild(tableRow);
+}
+
+function removeBookFromTableRow(e){
+    const childToRemove = document.getElementById(e.getAttribute("row_id"));
+    tableOfBooks.removeChild(childToRemove);
 }
 
 const author = document.getElementById("author_name");
@@ -76,8 +77,14 @@ const title = document.getElementById("book_title");
 const pages = document.getElementById("book_pages");
 const read = document.getElementById("book_read");
 
+const layout = document.querySelector(".grid-layout-wrapper");
 const tableOfBooks = document.querySelector(".table-book");
-const btn = document.querySelector("button");
-btn.addEventListener("click",addBookToLibrary);
+const addBtn = document.querySelector(".addBtn");
+addBtn.addEventListener("click",addBookToLibrary);
+
+const inputContainer = document.querySelector(".input-container")
+
+const showInputContainerBtn = document.querySelector(".show-input-container");
+showInputContainerBtn.addEventListener("click",openFormWindow);
 
 displayLibrary();
