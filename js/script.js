@@ -1,4 +1,4 @@
-let myLibrary = [new Book("J.K. Rowling","Harry Potter", 290, true),new Book("J.K. Rowling","Harry Potter 2", 124, true)];
+let myLibrary = [];
 
 function Book(author,title,pages,read) {
   this.author = author;
@@ -25,6 +25,7 @@ function closeFormWindow(){
 function addBookToLibrary(){
     const book = new Book(author.value,title.value, pages.value, read.value);
     myLibrary.push(book);
+    localStorage.setItem("library",JSON.stringify(myLibrary));
     addBookToTableRow(book);
     closeFormWindow();
 }
@@ -34,14 +35,18 @@ function removeBookFromLibrary(){
         if (book["title"]+book["author"]==this.getAttribute("row_id")){
            let bookIndex = myLibrary.indexOf(book);
            myLibrary.splice(bookIndex,1);
+           
         }
     })
-   removeBookFromTableRow(this);
+    localStorage.setItem("library",JSON.stringify(myLibrary));
+    removeBookFromTableRow(this);
 }
 
 function displayLibrary(){
 
-    myLibrary.forEach(book=>{
+    const storage = JSON.parse(localStorage.getItem("library"));
+
+    storage.forEach(book=>{
        addBookToTableRow(book);
     })
 }
@@ -59,7 +64,6 @@ function addBookToTableRow(book){
             td.textContent = book[property];
             tableRow.appendChild(td);
         }
-        
     }
 
     tableRow.appendChild(removeBtn);
@@ -76,15 +80,13 @@ const author = document.getElementById("author_name");
 const title = document.getElementById("book_title");
 const pages = document.getElementById("book_pages");
 const read = document.getElementById("book_read");
-
 const layout = document.querySelector(".grid-layout-wrapper");
 const tableOfBooks = document.querySelector(".table-book");
 const addBtn = document.querySelector(".addBtn");
-addBtn.addEventListener("click",addBookToLibrary);
-
 const inputContainer = document.querySelector(".input-container")
-
 const showInputContainerBtn = document.querySelector(".show-input-container");
+
+addBtn.addEventListener("click",addBookToLibrary);
 showInputContainerBtn.addEventListener("click",openFormWindow);
 
 displayLibrary();
