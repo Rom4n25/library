@@ -20,6 +20,7 @@
         </header>
         <main>
             <div class="hide input-container">
+                <form id="book_form">
                     <div class="input-wrap">
                         <label for="author_name">Author name:</label>
                         <input type="text" name="author" id="author_name" placeholder="" required>
@@ -32,11 +33,21 @@
                         <label for="book_pages">Pages:</label>
                         <input type="number" name="pages" id="book_pages" required>
                     </div>
-                    <div class="input-wrap">
+                    <div class="input-radio-wrap">
                         <label for="book_read">Did you read this book?:</label>
-                        <input type="text" name="read" id="book_read" required>
+                            <label class="label-radio" for="book_read_yes">
+                                <input type="radio" class="read-radio" name="read" id="book_read_yes" value="yes" checked required>
+                                <img class="radio-img" src="icon/yes-svgrepo-com.svg" alt="yes">
+                            </label>
+                            <label class="label-radio" for="book_read_no">
+                                <input type="radio" class="read-radio" name="read" id="book_read_no" value="no" required>
+                                <img class="radio-img" src="icon/no-svgrepo-com.svg" alt="no">
+                            </label>
                     </div>
-                    <button class="addBtn">Add Book</button>
+                    <div class="input-wrap">
+                        <button type="submit" class="addBtn">Add Book</button>
+                    </div>
+                </form>
             </div>
             <div class="table-container">
                 <button class="show-input-container">+ Add Book</button>
@@ -44,8 +55,9 @@
                     <tr>
                         <th>Author</th>
                         <th>Title</th>
-                        <th>Pages</th>
-                        <th>Read</th>
+                        <th class="th-small">Pages</th>
+                        <th  class="th-small">Read</th>
+                        <th class="th-small">Delete</th>
                     </tr>
                 </table>
             </div>
